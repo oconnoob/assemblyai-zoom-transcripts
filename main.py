@@ -14,12 +14,12 @@ aai.settings.api_key = os.environ.get('ASSEMBLYAI_API_KEY')
 
 transcriber = aai.Transcriber()
 
-a = ZoomClient(account_id=ZOOM_ACCOUNT_ID, client_id=ZOOM_CLIENT_ID, client_secret=ZOOM_CLIENT_SECRET)
+client = ZoomClient(account_id=ZOOM_ACCOUNT_ID, client_id=ZOOM_CLIENT_ID, client_secret=ZOOM_CLIENT_SECRET)
 
-recs = a.get_recordings()
+recs = client.get_recordings()
 if recs['meetings']:    
     rec_id = recs['meetings'][0]['id']
-    my_url = a.get_download_url(rec_id)
+    my_url = client.get_download_url(rec_id)
     transcript = transcriber.transcribe(my_url)
     print(transcript.text)
     with open('transcript.txt', 'w') as f:
